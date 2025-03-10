@@ -3,12 +3,16 @@ package com.akarsh.blog.services.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.akarsh.blog.exceptions.*;
 import com.akarsh.blog.payloads.UserDto;
 import com.akarsh.blog.services.UserService;
+
+import jakarta.validation.Valid;
+
 import com.akarsh.blog.repositories.*;
 import com.akarsh.blog.entities.*;
 
@@ -26,7 +30,10 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepo userRepo;
-
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@Override
 	public UserDto createUser(UserDto userDto) {
 		User user = this.dtoToUser(userDto);
@@ -46,7 +53,7 @@ public class UserServiceImpl implements UserService {
 		user.setAbout (userDto.getAbout());
 		
 		
-		User updatedUser = this. userRepo. save(user);
+		User updatedUser = this.userRepo.save(user);
 		UserDto userDto1 = this.userToDto(updatedUser);
 		
 		return userDto1;
@@ -88,22 +95,29 @@ public class UserServiceImpl implements UserService {
 
 	public User dtoToUser(UserDto userDto)
 	{
-		User user= new User();
-		user.setId(userDto.getId());
-		user.setName(userDto.getName());
-		user.setEmail(userDto.getEmail());
-		user.setAbout (userDto.getAbout());
-		user.setPassword(userDto.getPassword());
+		User user = this.modelMapper.map(userDto, User.class) ;
+		
+		
+		
+	/*		user.setId(userDto.getId());
+			user.setName(userDto.getName());
+			user.setEmail(userDto.getEmail());
+			user.setAbout (userDto.getAbout());
+			user.setPassword(userDto.getPassword());
+	*/
 		return user;
 			
 	}
 	public UserDto userToDto(User user) {
-	    UserDto userDto = new UserDto();
-	    userDto.setId(user.getId());
-	    userDto.setName(user.getName());
-	    userDto.setEmail(user.getEmail());
-	    userDto.setAbout(user.getAbout());
-	    userDto.setPassword(user.getPassword());
+	    UserDto userDto = this.modelMapper.map(user, UserDto.class) ;
+	    
+	  /*  
+		    userDto.setId(user.getId()); 
+		    userDto.setName(user.getName());
+		    userDto.setEmail(user.getEmail());
+		    userDto.setAbout(user.getAbout());
+		    userDto.setPassword(user.getPassword());
+	   */
 	    return userDto;
 	}
 

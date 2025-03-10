@@ -1,3 +1,10 @@
+# Ignore macOS system files
+.DS_Store
+src/.DS_Store
+src/main/.DS_Store
+src/main/java/.DS_Store
+src/main/java/com/.DS_Store
+src/main/java/com/akarsh/.DS_Store
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
