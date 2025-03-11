@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.akarsh.blog.entities.Post;
 import com.akarsh.blog.payloads.PostDto;
+import com.akarsh.blog.payloads.PostResponse;
 import com.akarsh.blog.services.PostService;
 
 
@@ -28,7 +30,7 @@ public class PostController {
 	private PostService postService;
 	
 	// CREATE a new post
-	@PostMapping("/user/{userId}/category/{categoryId}/posts")
+	@PostMapping("/user/{userId}/category/{categoryId}/posts") 
 	public ResponseEntity<PostDto> createPost(
 	        @RequestBody PostDto postDto, 
 	        @PathVariable Integer userId, 
@@ -55,10 +57,16 @@ public class PostController {
 	// Get all posts
 	
 	@GetMapping("/posts")
-	public ResponseEntity<List<PostDto>> getAllPost() {
-	    List<PostDto> allPosts = this.postService.getAllPost();
-	    return new ResponseEntity<>(allPosts, HttpStatus.OK);
+	public ResponseEntity<PostResponse> getAllPosts(
+	        @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+	        @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
+
+	    PostResponse postResponse = postService.getAllPost(pageNumber, pageSize);
+
+	    return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
+
 	}
+
 
 	
 	// Get post detail using post Id

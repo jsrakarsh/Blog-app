@@ -8,6 +8,30 @@ import org.springframework.data.repository.query.Param;
 import com.akarsh.blog.entities.Category;
 import com.akarsh.blog.entities.Post;
 import com.akarsh.blog.entities.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;
+
 
 public interface PostRepo extends JpaRepository<Post,Integer> {
 	

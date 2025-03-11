@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.akarsh.blog.entities.Post;
 import com.akarsh.blog.payloads.PostDto;
+import com.akarsh.blog.payloads.PostResponse;
 
 public interface PostService {
 	
@@ -18,7 +19,7 @@ public interface PostService {
 	void deletePost(Integer postId);
 	
 	//RETRIEVE ALL POSTS
-	List<PostDto> getAllPost();
+	PostResponse getAllPost(Integer pageNumber, Integer pageSize);
 	
 	// RETRIEVE SINGLE POST
 	PostDto getPostById(Integer postId);
