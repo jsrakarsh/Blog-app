@@ -2,6 +2,7 @@ package com.akarsh.blog.services.impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.PageRequest;
 
 import java.sql.Date;
@@ -97,12 +98,23 @@ public class PostServiceImpl implements PostService {
 
 
 	@Override
-	public PostResponse getAllPost(Integer pageNumber, Integer pageSize) {
+	public PostResponse getAllPost(Integer pageNumber, Integer pageSize,String sortBy,String sortDir) {
+		
+		
+		Sort sort = null;
+
+		if (sortDir.equalsIgnoreCase("asc")) {
+		    sort = Sort.by(sortBy).ascending();
+		} else {
+		    sort = Sort.by(sortBy).descending();
+		}
+
+		// Create a pageable request with page number, page size, and sorting criteria
+		Pageable pageable = PageRequest.of(pageNumber, pageSize,sort);
+		
+	    // ALTERNATE WAY FOR DESCENDING -> Pageable pageable = PageRequest.of(pageNumber, pageSize,Sort.by(sortBy).descending());
 	    
-	    // Create pageable request
-	    Pageable pageable = PageRequest.of(pageNumber, pageSize);
-	    
-	    // Fetch paginated posts
+	    // Fetch paginated and sorted posts from the database
 	    Page<Post> pagePost = postRepo.findAll(pageable);
 	    
 	    // Convert retrieved posts to PostDto
