@@ -26,6 +26,8 @@ import com.akarsh.blog.repositories.PostRepo;
 import com.akarsh.blog.repositories.UserRepo;
 import com.akarsh.blog.services.PostService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PostServiceImpl implements PostService {
 	
@@ -144,10 +146,13 @@ public class PostServiceImpl implements PostService {
 
 
 	@Override
+	
 	public PostDto getPostById(Integer postId) {
 	    Post post = this.postRepo.findById(postId)
 	            .orElseThrow(() -> new ResourceNotFoundException("Post", "Post id", postId));
 
+	    post.getComments().size();
+	    
 	    return this.modelMapper.map(post, PostDto.class);
 	}
 
